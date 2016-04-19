@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Uta_
+namespace Uta
 {
     /// <summary>
     /// This is the main type for your game.
@@ -11,6 +11,7 @@ namespace Uta_
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        TextEngine.TextEngine textEngine;
 
         public Uta()
         {
@@ -27,6 +28,8 @@ namespace Uta_
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            textEngine = new TextEngine.TextEngine("..\\..\\..\\..\\Content\\ブラック★ロックシューター.ass");
+            textEngine.Initialize();
 
             base.Initialize();
         }
@@ -39,6 +42,7 @@ namespace Uta_
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            textEngine.setFont(Content.Load<SpriteFont>("font"));
 
             // TODO: use this.Content to load your game content here
         }
@@ -76,6 +80,9 @@ namespace Uta_
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            textEngine.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

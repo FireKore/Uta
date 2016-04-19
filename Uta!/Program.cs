@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uta_
+namespace Uta
 {
     /// <summary>
     /// The main class.
