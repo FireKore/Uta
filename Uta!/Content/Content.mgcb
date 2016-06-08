@@ -19,3 +19,9 @@
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
 
+#begin BRS.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BRS.mp3
+

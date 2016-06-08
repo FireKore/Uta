@@ -20,7 +20,7 @@ namespace Uta.TextEngine
             subFileUri = subtitlesFile;
         }
 
-        public void Initialize()
+        public void Initialize(Vector2 screenSize)
         {
             System.IO.StreamReader subFile = new System.IO.StreamReader(subFileUri);
             String line = "";
@@ -64,7 +64,7 @@ namespace Uta.TextEngine
                             }
                             if (line.Contains("Dialogue:"))
                             {
-                                textLines.Add(new TextLine(line.Substring(10).Trim().Split(','), format.Split(',')));
+                                textLines.Add(new TextLine(line.Substring(10).Trim().Split(','), format.Split(','), screenSize));
                             }
                             line = subFile.ReadLine();
                             if(line != null)
