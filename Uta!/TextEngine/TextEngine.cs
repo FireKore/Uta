@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,14 @@ namespace Uta.TextEngine
 {
     class TextEngine
     {
-        private String subFileUri;
+		private String subFileUri;
+		TimeSpan ellapsedTime;
         private List<TextLine> textLines = new List<TextLine>();
         private List<Dictionary<String, String>> textStyles = new List<Dictionary<String, String>>();
 
         public TextEngine(String subtitlesFile)
         {
-            subFileUri = subtitlesFile;
+			subFileUri = subtitlesFile;
         }
 
         public void Initialize(Vector2 screenSize)
@@ -88,13 +90,16 @@ namespace Uta.TextEngine
             }
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+			if (MediaPlayer.State == MediaState.Playing)
+			{
+				ellapsedTime += gameTime.ElapsedGameTime;
+			}
             foreach (TextLine line in textLines)
             {
-                line.Draw(gameTime, spriteBatch);
+				line.Draw(ellapsedTime, spriteBatch);
             }
-            //spriteBatch.DrawString(font, "pouet", new Vector2(100, 100), Color.Black);
         }
 
         private void AddTextStyle(String[] style, String[] formats)

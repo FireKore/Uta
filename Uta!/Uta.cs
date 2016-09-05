@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace Uta
 {
@@ -13,6 +14,7 @@ namespace Uta
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         TextEngine.TextEngine textEngine;
+		bool spacePressed = false;
         Song song;
 
         public Uta()
@@ -44,7 +46,7 @@ namespace Uta
         {
             song = Content.Load<Song>("BRS");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            textEngine.setFont(Content.Load<SpriteFont>("font"));
+			textEngine.setFont(Content.Load<SpriteFont>("font"));
             MediaPlayer.Play(song);
 
             // TODO: use this.Content to load your game content here
@@ -65,12 +67,17 @@ namespace Uta
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        {
+		{
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+			if(Keyboard.GetState().IsKeyDown(Keys.Space))
+			{
+				spacePressed = true;
+			}
+			if(spacePressed && Keyboard.GetState().IsKeyUp(Keys.Space))
             {
+				spacePressed = false;
                 switch (MediaPlayer.State)
                 {
                     case MediaState.Stopped:
@@ -100,8 +107,8 @@ namespace Uta
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            //TODO: Add your drawing code here
+			spriteBatch.Begin();
             textEngine.Draw(gameTime, spriteBatch);
             spriteBatch.End();
 

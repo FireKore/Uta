@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,11 +100,12 @@ namespace Uta_.TextEngine
             }
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            if(MediaPlayer.PlayPosition >= this.startTime && MediaPlayer.PlayPosition <= this.endTime)
-            {
-                double millisEllapsed = MediaPlayer.PlayPosition.TotalMilliseconds - this.startTime.TotalMilliseconds;
+		public void Draw(TimeSpan ellapsedTime, SpriteBatch spriteBatch)
+		{
+			if(ellapsedTime >= this.startTime && ellapsedTime <= this.endTime)
+            //if(MediaPlayer.PlayPosition >= this.startTime && MediaPlayer.PlayPosition <= this.endTime)
+			{
+				double millisEllapsed = ellapsedTime.TotalMilliseconds - this.startTime.TotalMilliseconds;
                 foreach (TextSyllab syllab in syllabs)
                 {
                     syllab.Draw(spriteBatch, this.font, syllab.getDelay() >= millisEllapsed ? Color.Red : Color.White);
